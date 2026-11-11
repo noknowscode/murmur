@@ -1,0 +1,16 @@
+<Project Sdk="Uno.Sdk">
+  <PropertyGroup>
+    <!-- Add net10.0-android / net10.0-ios / net10.0-browserwasm here once those workloads are installed.
+         Every head that uses these controls must render with Skia (SKCanvasElement). -->
+    <TargetFrameworks>net10.0;net10.0-desktop</TargetFrameworks>
+    <UnoSingleProject>true</UnoSingleProject>
+    <OutputType>Library</OutputType>
+    <GenerateLibraryLayout>true</GenerateLibraryLayout>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>Murmuration</RootNamespace>
+    <UnoFeatures>
+      Skia;
+    </UnoFeatures>
+  </PropertyGroup>
+</Project>

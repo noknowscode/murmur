@@ -1,0 +1,87 @@
+<Page x:Class="Murmuration.Gallery.MainPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:m="using:Murmuration"
+      Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+  <!-- One FlockHost around the whole page: every flock control below draws its birds into the host's overlay. -->
+  <m:FlockHost x:Name="Host" MaxWidth="560" Padding="24" RowSpacing="20">
+    <m:FlockHost.RowDefinitions>
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="*" />
+    </m:FlockHost.RowDefinitions>
+
+    <StackPanel Spacing="12">
+      <TextBlock Text="Murmuration" Style="{ThemeResource TitleTextBlockStyle}" />
+      <StackPanel Orientation="Horizontal" Spacing="8">
+        <RadioButton x:Name="TabProgress" Content="Progress" GroupName="Tabs" IsChecked="True" Checked="OnTab" />
+        <RadioButton x:Name="TabThinking" Content="Thinking" GroupName="Tabs" Checked="OnTab" />
+        <RadioButton x:Name="TabStreaming" Content="Streaming" GroupName="Tabs" Checked="OnTab" />
+        <RadioButton x:Name="TabLoading" Content="Loading" GroupName="Tabs" Checked="OnTab" />
+      </StackPanel>
+      <CheckBox x:Name="Slow" Content="Quarter speed" Checked="OnSlow" Unchecked="OnSlow" />
+    </StackPanel>
+
+    <!-- Progress -->
+    <StackPanel x:Name="ProgressPanel" Grid.Row="1" Spacing="8">
+      <TextBlock x:Name="Pct" Text="0%" FontSize="72" FontWeight="Bold" />
+      <TextBlock x:Name="ProgressMessage" Text="Uploading 24 photos" />
+      <m:FlockProgressBar x:Name="Bar" Height="240" />
+      <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,12,0,0">
+        <Button Content="Run upload" Click="OnRunUpload" />
+        <Button Content="Reset" Click="OnResetUpload" />
+      </StackPanel>
+    </StackPanel>
+
+    <!-- Thinking, handing off to a streamed answer -->
+    <Grid x:Name="ThinkingPanel" Grid.Row="1" Visibility="Collapsed" RowSpacing="12">
+      <Grid.RowDefinitions>
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="160" />
+        <RowDefinition Height="*" />
+        <RowDefinition Height="Auto" />
+      </Grid.RowDefinitions>
+      <TextBlock x:Name="ThinkingStatus" Text="Ask a question" Opacity="0.7" />
+      <m:FlockThinkingIndicator x:Name="Thinking" Grid.Row="1" />
+      <m:FlockStreamingText x:Name="Answer" Grid.Row="2" VerticalAlignment="Top" />
+      <Grid Grid.Row="3" ColumnSpacing="8">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="*" />
+          <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <TextBox x:Name="ThinkingPrompt" Text="Where should I watch tonight?" PlaceholderText="Ask a follow-up" />
+        <Button Grid.Column="1" Content="Send" Click="OnSendThinking" />
+      </Grid>
+    </Grid>
+
+    <!-- Streaming on its own -->
+    <Grid x:Name="StreamingPanel" Grid.Row="1" Visibility="Collapsed" RowSpacing="12">
+      <Grid.RowDefinitions>
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="*" />
+        <RowDefinition Height="Auto" />
+      </Grid.RowDefinitions>
+      <TextBlock x:Name="StreamingStatus" Text="Send the prompt" Opacity="0.7" />
+      <m:FlockStreamingText x:Name="Stream" Grid.Row="1" VerticalAlignment="Top" />
+      <Grid Grid.Row="2" ColumnSpacing="8">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="*" />
+          <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <TextBox x:Name="StreamingPrompt" Text="Describe a murmuration" PlaceholderText="Ask a follow-up" />
+        <Button Grid.Column="1" Content="Send" Click="OnSendStreaming" />
+      </Grid>
+    </Grid>
+
+    <!-- Loading -->
+    <StackPanel x:Name="LoadingPanel" Grid.Row="1" Visibility="Collapsed" Spacing="12">
+      <Grid>
+        <TextBlock Text="Sightings" Style="{ThemeResource SubtitleTextBlockStyle}" VerticalAlignment="Center" />
+        <Button Content="Refresh" HorizontalAlignment="Right" Click="OnRefresh" />
+      </Grid>
+      <m:FlockLoader x:Name="Loader" Height="300">
+        <StackPanel x:Name="Rows" Spacing="18" />
+      </m:FlockLoader>
+    </StackPanel>
+  </m:FlockHost>
+</Page>
