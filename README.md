@@ -1,3 +1,5 @@
+> **Moved to uno-lab.** This project now lives in the `murmur/` folder of [noknowscode/uno-lab](https://github.com/noknowscode/uno-lab/tree/main/murmur) (private). This repository is archived and kept for its history.
+
 # Murmuration for Uno Platform
 
 Four controls that use a flock of birds as a status indicator. See `SPEC.md` for the design.
